@@ -1,0 +1,81 @@
+{
+  "name": "vscode-jira-mcp",
+  "displayName": "Jira MCP Runner",
+  "description": "Connect to a Jira MCP server via SSE + Atlassian OAuth — no Copilot required",
+  "version": "1.0.0",
+  "engines": { "vscode": "^1.90.0" },
+  "categories": ["Other"],
+  "publisher": "your-org",
+  "repository": { "type": "git", "url": "https://github.com/your-org/vscode-jira-mcp" },
+  "license": "MIT",
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "jiraMcp.connect",
+        "title": "Jira MCP: Connect (OAuth Login)"
+      },
+      {
+        "command": "jiraMcp.disconnect",
+        "title": "Jira MCP: Disconnect"
+      },
+      {
+        "command": "jiraMcp.openPanel",
+        "title": "Jira MCP: Open Panel"
+      },
+      {
+        "command": "jiraMcp.refreshIssues",
+        "title": "Jira MCP: Refresh Issues"
+      },
+      {
+        "command": "jiraMcp.summarizeSprint",
+        "title": "Jira MCP: Summarize Current Sprint"
+      }
+    ],
+    "configuration": {
+      "title": "Jira MCP",
+      "properties": {
+        "jiraMcp.serverUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Base URL of your Jira MCP server (e.g. https://jira-mcp.internal.company.com)"
+        },
+        "jiraMcp.clientId": {
+          "type": "string",
+          "default": "",
+          "description": "Atlassian OAuth 2.0 App Client ID (register at developer.atlassian.com)"
+        },
+        "jiraMcp.defaultJql": {
+          "type": "string",
+          "default": "assignee = currentUser() ORDER BY updated DESC",
+          "description": "Default JQL query for the Issues panel"
+        },
+        "jiraMcp.cloudId": {
+          "type": "string",
+          "default": "",
+          "description": "Atlassian Cloud ID for your site (from /ex/jira/{cloudId}/)"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "jira-mcp",
+          "title": "Jira MCP",
+          "icon": "$(tasklist)"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.4.0"
+  }
+}
